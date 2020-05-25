@@ -60,7 +60,7 @@ unode:
     port: 9100
 ```
 
-* logfiles.lst
+* config/logfiles.lst
 ![alt text](images/unode-logevent.png)
 
 ```
@@ -69,7 +69,7 @@ metric_label2;was;warn|error;/app/app/logs/logfile2.log
 metric_label3;app;warn|error;/app/apache/logs/logfile3.log
 ```
 
-* sysinfo.sh
+* scripts/sysinfo.sh
 
 ```
 # start shell
@@ -77,8 +77,8 @@ echo "[”
 
 
 # Add the last script have a comma in result
-ps -ef| grep defunct | wc -l | awk -f ./scripts/test.awk –
-
+ps -ef| grep defunct | wc -l | awk -f ./scripts/func-a.awk –
+ps -ef| grep defunct | wc -l | awk -f ./scripts/func-b.awk –
 :
 
 # end shell
