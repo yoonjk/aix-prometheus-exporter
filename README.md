@@ -47,7 +47,7 @@ go get -v -u -insecure  github.com/pkg/errors v0.8.1
 go get -v -u -insecure  github.com/prometheus/client_golang v1.0.0
 go get -v -u -insecure  github.com/prometheus/common v0.7.0
 ```
-
+## 2. Unode Exporter on AIX 
 * Directory Environment
 ![alt text](images/unode-dir.png)
 
@@ -57,7 +57,7 @@ unode:
     port: 9100
 ```
 
-* logfiles.lst  template
+* logfiles.lst
 ![alt text](images/unode-logevent.png)
 
 ```
@@ -134,3 +134,17 @@ END {
 }:
 
 ```
+
+## 3. Build Unode Exporter on AIX 
+* Build
+```
+go build -o unode exporter.go
+```
+
+* Run
+```
+./unode
+```
+
+* Change unode port
+Modify port number in config/config.yaml , and run unode runtime module.
