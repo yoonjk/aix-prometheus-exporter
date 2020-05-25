@@ -17,13 +17,15 @@ Collectors:
 ## 1. Pre-requisites
 
 == Installation
+
 [source,bash]
 . Setup Git configuraiton
 ----
-* git config --global http.sslVerify false
-* git https validate off
-* git config --global user.name "Kildong Hong"
----- 
+git config --global http.sslVerify false
+git https validate off
+git config --global user.name "Kildong Hong"
+----
+
 [source,bash]
 . Generation Certification file
 ----
