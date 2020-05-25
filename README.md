@@ -48,6 +48,9 @@ go get -v -u -insecure  github.com/prometheus/client_golang v1.0.0
 go get -v -u -insecure  github.com/prometheus/common v0.7.0
 ```
 ## 2. Unode Exporter on AIX 
+* Functional List
+![alt text](images/unode-func-list.png)
+
 * Directory Environment
 ![alt text](images/unode-dir.png)
 
@@ -144,6 +147,11 @@ go build -o unode exporter.go
 * Run
 ```
 ./unode
+```
+
+* test
+```
+curl http://localhost:9100/metrics
 ```
 
 * Change unode port
