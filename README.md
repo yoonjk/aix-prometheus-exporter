@@ -138,7 +138,7 @@ END {
 
 ```
 
-## 3. Build Unode Exporter on AIX 
+## 3. Build/Run/Test Unode Exporter on AIX 
 * Build
 ```
 go build -o unode exporter.go
@@ -149,7 +149,7 @@ go build -o unode exporter.go
 ./unode
 ```
 
-* test
+* Test
 ```
 curl http://localhost:9100/metrics
 ```
