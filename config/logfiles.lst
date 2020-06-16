@@ -1,0 +1,10 @@
+label1;was;warn|error;/app/unode/logs/logfile1.log
+label2;was;warn|error;/app/unode/logs/logfile2.log
+label3;app;warn|error;/app/unode/logs/logfile3.log
+label4;app;warn|error;/app/unode/logs/logfile4.log
+label5;app;warn|error;/app/unode/logs/logfile5.log
+label6;was;error;/app/unode/logs/logfile6.log
+label7;aix7.1;error;/app/unode/logs/logfile7.log
+label8;aix7.2;error;/app/unode/logs/logfile8.log
+label9;aix7.1;error;/app/unode/logs/logfile9.log
+label10;aix7.1;error;/app/unode/logs/logfile10.log

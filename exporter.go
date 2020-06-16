@@ -11,6 +11,13 @@ import (
 	"gopkg.in/alecthomas/kingpin.v2"
 	"net/http"
 	"sort"
+        "io/ioutil"
+        "path/filepath"
+        "gopkg.in/yaml.v2"
+)
+
+var (
+  config map[string]interface{}
 )
 
 type handler struct {
@@ -19,6 +26,39 @@ type handler struct {
 	maxRequests             int
 }
 
+func Config()  map[string]interface{} {
+    filename, _ := filepath.Abs("config/config.yaml")
+    yamlFile, err := ioutil.ReadFile(filename)
+
+    if err != nil {
+        panic(err)
+    }
+
+    var config map[string]interface{}
+
+    err = yaml.Unmarshal(yamlFile, &config)
+
+    if err != nil {
+        panic(err)
+    }
+
+    return config
+}
+
+func Get(this interface{}, key string) interface{} {
+    return this.(map[interface{}]interface{})[key]
+}
+
+func String (payload interface{}) string {
+    var load string
+    if pay, oh := payload.(string); oh {
+        load = pay
+    } else {
+        load = ""
+    }
+
+    return load
+}
 func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	filters := r.URL.Query()["collect[]"]
 	log.Debugln("collect query:", filters)
@@ -98,22 +138,25 @@ func newHandler(maxRequests int) *handler {
 
 func main() {
 
+       config = Config()
+       unodeConfig := config["unode"]
+       unodePort := fmt.Sprintf(":%d",Get(unodeConfig, "port"))
+ 
 	var (
 		listenAddress = kingpin.Flag(
 			"web.listen-address",
 			"Address on which to expose metrics and web interface.",
-		).Default(":9100").String()
+		).Default(unodePort).String()
 
 		metricsPath = kingpin.Flag(
 			"web.telemetry-path",
 			"Path under which to expose metrics.",
 		).Default("/metrics").String()
-
+               
 		maxRequests = kingpin.Flag(
 			"web.max-requests",
 			"Maximum number of parallel scrape requests. Use 0 to disable.",
 		).Default("40").Int()
-
 		configFile = kingpin.Flag(
 			"web.config",
 			"Path to config yaml file that can enable TLS or authentication.",
@@ -121,7 +164,7 @@ func main() {
 	)
 
 	log.AddFlags(kingpin.CommandLine)
-	kingpin.Version(version.Print("aix_exporter"))
+	//kingpin.Version(version.Print("aix_exporter"))
 	kingpin.HelpFlag.Short('h')
 	kingpin.Parse()
 
@@ -137,6 +180,7 @@ func main() {
 			</html>`))
 	})
 
+        log.Infoln("aix_exporter");
 	log.Infoln("Listening on", *listenAddress)
 	server := &http.Server{Addr: *listenAddress}
 	if err := https.Listen(server, *configFile); err != nil {
